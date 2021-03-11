@@ -20,4 +20,15 @@
          devices will be able to vary their amplitude but do not possess enough dynamic range to
          have distinct intensity levels -->
     <bool name="config_vibration_supports_multiple_intensities">true</bool>
+
+    <!-- Battery Health -->
+    <string name="config_batCurCap">/sys/class/power_supply/bms/charge_full</string>
+    <string name="config_batDesCap">/sys/class/power_supply/bms/charge_full_design</string>
+    <string name="config_batHealth">/sys/class/power_supply/battery/health</string>
+    <string name="config_batType">/sys/class/power_supply/battery/technology</string>
+    <string name="config_batChargeCycle">/sys/class/power_supply/battery/cycle_count</string>
+    <integer name="config_batCurCapDivider">1000</integer>
+    <integer name="config_batDesCapDivider">1000</integer>
+    <bool name="config_supportBatteryHealth">true</bool>
+
 </resources>
