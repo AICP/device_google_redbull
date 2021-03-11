@@ -263,6 +263,16 @@ on late-fs
     # Mount RW partitions which need run fsck
     mount_all /vendor/etc/fstab.${ro.boot.hardware.platform} --late
 
+    # Battery Health
+    chown system system /sys/class/power_supply/bms/charge_full
+    chmod 0644 /sys/class/power_supply/bms/charge_full
+    chown system system /sys/class/power_supply/bms/charge_full_design
+    chmod 0644 /sys/class/power_supply/bms/charge_full_design
+    chown system system /sys/class/power_supply/bms/cycle_count
+    chmod 0644 /sys/class/power_supply/bms/cycle_count
+    chown system system /sys/class/power_supply/bms/health
+    chmod 0644 /sys/class/power_supply/bms/health
+
     # Required for time_daemon
     mkdir /mnt/vendor/persist/time 0770 system system
     chown system system /mnt/vendor/persist/time/ats_1
