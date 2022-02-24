@@ -52,3 +52,6 @@ type vendor_incremental_module, vendor_file_type, file_type;
 
 # All files under /data/vendor/firmware/wifi
 type updated_wifi_firmware_data_file, file_type, data_file_type;
+
+# sysinfo
+type sysfs_device_info, fs_type, sysfs_type;

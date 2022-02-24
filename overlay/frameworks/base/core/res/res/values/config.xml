@@ -394,7 +394,7 @@
     <bool name="config_supportDoubleTapWake">true</bool>
 
     <!-- AICP QS System Info-->
-    <string name="config_sysCPUTemp">/sys/class/thermal/thermal_zone14/temp</string>
+    <string name="config_sysCPUTemp">/sys/class/thermal/thermal_zone23/temp</string>
     <integer name="config_sysCPUTempMultiplier">1000</integer>
 
     <!-- List of biometric sensors on the device, in decreasing strength. Consumed by AuthService

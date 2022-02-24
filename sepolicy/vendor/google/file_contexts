@@ -80,3 +80,6 @@
 
 #vendor_kernel_modules
 /vendor/lib/modules/.*\.ko                                                             u:object_r:vendor_kernel_modules:s0
+
+# sysinfo
+/sys/class/thermal/thermal_zone23/temp u:object_r:sysfs_device_info:s0
