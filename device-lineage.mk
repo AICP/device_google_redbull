@@ -79,6 +79,9 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.mapper@1.0.vendor:64 \
     vendor.qti.hardware.systemhelper@1.0.vendor \
 
+# Camera
+    $(call inherit-product, vendor/google/camera/config.mk)
+
 # EUICC
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.euicc.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.hardware.telephony.euicc.xml
