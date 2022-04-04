@@ -106,9 +106,6 @@
     <!-- The restoring is handled by modem if it is true -->
     <bool translatable="false" name="skip_restoring_network_selection">true</bool>
 
-    <!-- If device supports pickup/lift gesture -->
-    <bool name="config_dozePulsePickup">true</bool>
-
     <!-- Set to true to add links to Cell Broadcast app from Settings and MMS app. -->
     <bool name="config_cellBroadcastAppLinks">true</bool>
 
@@ -207,6 +204,25 @@
         <item>"7,1"</item>
         <item>"9,1"</item>
     </string-array>
+
+   <!-- Enable doze mode
+         ComponentName of a dream to show whenever the system would otherwise have gone to sleep. -->
+    <string translatable="false" name="config_dozeComponent">com.android.systemui/com.android.systemui.doze.DozeService</string>
+
+    <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>
+
+    <!-- If true, the doze component is not started until after the screen has been turned off
+         and the screen off animation has been performed. -->
+    <bool name="config_dozeAfterScreenOffByDefault">true</bool>
+
+    <!-- Doze: should the TYPE_PICK_UP_GESTURE sensor be used as a pulse signal. -->
+    <bool name="config_dozePulsePickup">true</bool>
+
+    <!-- Type of the double tap sensor. Empty if double tap is not supported. -->
+    <string name="config_dozeDoubleTapSensorType" translatable="false">com.google.sensor.double_touch</string>
+
+    <!-- Whether the display blanks itself when transition from a doze to a non-doze state -->
+    <bool name="config_displayBlanksAfterDoze">true</bool>
 
     <!-- Specifies whether to decouple the auto-suspend state of the device from the display on/off state. -->
     <bool name="config_powerDecoupleAutoSuspendModeFromDisplay">true</bool>
