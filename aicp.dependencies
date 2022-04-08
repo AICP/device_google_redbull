@@ -1,7 +1,0 @@
-[
-  {
-    "repository": "AICP/kernel_google_redbull",
-    "target_path": "kernel/google/redbull",
-    "branch":      "r11.1"
-  }
-]

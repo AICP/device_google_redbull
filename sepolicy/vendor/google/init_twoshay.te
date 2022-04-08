@@ -8,4 +8,3 @@ allow init_twoshay sysfs_display:dir search;
 allow init_twoshay sysfs_display:file r_file_perms;
 
 set_prop(init_twoshay, vendor_twoshay_prop)
-

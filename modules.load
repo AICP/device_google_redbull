@@ -38,6 +38,7 @@ kernel/drivers/soc/qcom/smp2p.ko
 kernel/drivers/soc/qcom/qcom_ipcc.ko
 kernel/drivers/soc/qcom/llcc-slice.ko
 kernel/drivers/soc/qcom/llcc-lito.ko
+kernel/drivers/soc/qcom/llcc-orchid.ko
 kernel/drivers/soc/qcom/llcc_perfmon.ko
 kernel/drivers/soc/qcom/secure_buffer.ko
 kernel/drivers/soc/qcom/qtee_shm_bridge.ko
@@ -55,6 +56,8 @@ kernel/drivers/soc/qcom/memshare/heap_mem_ext_v01.ko
 kernel/drivers/soc/qcom/memshare/msm_memshare.ko
 kernel/drivers/soc/qcom/peripheral-loader.ko
 kernel/drivers/soc/qcom/qdsp6v2/cdsp-loader.ko
+kernel/drivers/soc/qcom/jtagv8.ko
+kernel/drivers/soc/qcom/jtagv8-etm.ko
 kernel/drivers/soc/qcom/smcinvoke.ko
 kernel/drivers/soc/qcom/rq_stats.ko
 kernel/drivers/soc/qcom/subsystem_notif.ko
@@ -66,7 +69,6 @@ kernel/drivers/soc/qcom/qcom_socinfo.ko
 kernel/drivers/soc/qcom/watchdog_v2.ko
 kernel/drivers/soc/qcom/msm_bus/msm_bus.ko
 kernel/drivers/soc/qcom/msm_bus/msm_bus_rpmh.ko
-kernel/drivers/soc/qcom/msm_bus/msm_bus_dbg_rpmh.ko
 kernel/drivers/soc/qcom/fsa4480-i2c.ko
 kernel/drivers/soc/qcom/glink_probe.ko
 kernel/drivers/soc/qcom/glink_pkt.ko
@@ -173,6 +175,7 @@ kernel/drivers/thermal/qcom/cpu_isolate.ko
 kernel/drivers/thermal/qcom/lmh_cpu_vdd_cdev.ko
 kernel/drivers/thermal/qcom-spmi-temp-alarm.ko
 kernel/drivers/thermal/thermal-tsens.ko
+kernel/drivers/md/dm-user.ko
 kernel/drivers/bluetooth/bluetooth_power.ko
 kernel/drivers/edac/qcom_edac.ko
 kernel/drivers/cpufreq/qcom-cpufreq-hw.ko
@@ -180,7 +183,6 @@ kernel/drivers/cpuidle/msm_pm.ko
 kernel/drivers/leds/leds-qpnp-flash-v2.ko
 kernel/drivers/leds/leds-qpnp-flash-common.ko
 kernel/drivers/firmware/msm_scm.ko
-kernel/drivers/firmware/qcom/tz_log.ko
 kernel/drivers/of/of_slimbus.ko
 kernel/drivers/of/of_batterydata.ko
 kernel/drivers/staging/android/ion/ion-alloc.ko
@@ -207,6 +209,8 @@ kernel/drivers/iio/adc/qcom-spmi-adc5.ko
 kernel/drivers/iio/adc/qcom-vadc-common.ko
 kernel/drivers/iio/power/pac193x.ko
 kernel/drivers/perf/qcom_llcc_pmu.ko
+kernel/drivers/hwtracing/google/coresight-clk-placeholder.ko
+kernel/drivers/hwtracing/google/coresight-clk-amba-placeholder.ko
 kernel/drivers/nvmem/nvmem_qfprom.ko
 kernel/drivers/nvmem/qcom-spmi-sdam.ko
 kernel/drivers/slimbus/slimbus.ko

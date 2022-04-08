@@ -21,16 +21,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import org.lineageos.settings.doze.DozeUtils;
-
 public class BootCompletedReceiver extends BroadcastReceiver {
-    private static final boolean DEBUG = false;
     private static final String TAG = "GoogleParts";
 
     @Override
     public void onReceive(final Context context, Intent intent) {
         Log.d(TAG, "Received boot completed intent");
         EuiccDisabler.enableOrDisableEuicc(context);
-        DozeUtils.checkDozeService(context);
     }
 }

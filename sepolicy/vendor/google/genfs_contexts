@@ -13,7 +13,6 @@ genfscon proc /sys/vm/swappiness		      u:object_r:proc_swappiness:s0
 genfscon proc /fs/f2fs                                u:object_r:proc_f2fs:s0
 genfscon proc /irq                                    u:object_r:proc_irq:s0
 genfscon proc /scsi                                   u:object_r:proc_scsi:s0
-genfscon sysfs /bus/iio/devices                       u:object_r:sysfs_iio_devices:s0
 
 # Touch
 genfscon sysfs /devices/platform/soc/880000.spi/spi_master/spi0/spi0.0          u:object_r:sysfs_touch:s0
@@ -124,6 +123,8 @@ genfscon sysfs /devices/platform/soc/soc:google,charger/bd_trigger_time         
 genfscon sysfs /devices/platform/soc/soc:google,charger/bd_trigger_voltage      u:object_r:sysfs_chargelevel:s0
 genfscon sysfs /devices/platform/soc/soc:google,charger/bd_temp_enable          u:object_r:sysfs_chargelevel:s0
 genfscon sysfs /devices/platform/soc/soc:google,charger/bd_temp_dry_run         u:object_r:sysfs_chargelevel:s0
+genfscon sysfs /devices/platform/soc/soc:google,charger/bd_clear                u:object_r:sysfs_chargelevel:s0
+
 
 # Pixelstats
 genfscon sysfs /devices/platform/codec_detect/resistance_left_right    u:object_r:sysfs_pixelstats:s0
@@ -134,7 +135,8 @@ genfscon sysfs /devices/platform/codec_detect/headset_codec_state      u:object_
 
 
 # Audio Dsp for HardwareInfo
-genfscon sysfs /devices/platform/codec_detect/hwinfo_part_number      u:object_r:sysfs_audio:s0
+genfscon sysfs /devices/platform/codec_detect/hwinfo_part_number            u:object_r:sysfs_audio:s0
+genfscon sysfs /devices/platform/soc/984000.i2c/i2c-0/0-0057/i2c_reset      u:object_r:sysfs_audio:s0
 
 # USB
 genfscon debugfs /usb/tcpm-usbpd0                     u:object_r:debugfs_usb:s0

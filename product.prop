@@ -90,12 +90,10 @@ persist.data.mode=concurrent
 
 # System props to enable Bluetooth Quality Report (BQR) feature
 # BQR event mask configuration
-persist.bluetooth.bqr.event_mask=14
+persist.bluetooth.bqr.event_mask=30
 # BQR minimum report interval configuration
 persist.bluetooth.bqr.min_interval_ms=500
 
 # System props to enable aac vbr feature
 persist.bluetooth.a2dp_aac.vbr_supported=true
 
-# USAP
-persist.device_config.runtime_native.usap_pool_enabled=true
