@@ -1,2 +1,7 @@
 # allow systemui to set boot animation colors
 set_prop(platform_app, bootanim_system_prop);
+# sysinfo
+allow platform_app sysfs_device_info:file { r_file_perms };
+allow platform_app sysfs_thermal:dir { r_dir_perms };
+allow platform_app sysfs_thermal:file { r_file_perms };
+allow platform_app sysfs_device_info:lnk_file { r_file_perms };

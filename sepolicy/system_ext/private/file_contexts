@@ -1,0 +1,2 @@
+# sysinfo
+/sys/class/thermal/thermal_zone17/temp u:object_r:sysfs_device_info:s0
