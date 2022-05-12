@@ -20,7 +20,7 @@
 #include <android-base/logging.h>
 #include <fcntl.h>
 
-#define CHARGE_CONTROL_NODE "/sys/class/power_supply/battery/op_disable_charge"
+#define CHARGE_CONTROL_NODE "/sys/class/power_supply/sm7250_bms/charge_disable"
 #define CHARGE_ENABLED '0'
 #define CHARGE_DISABLED '1'
 
