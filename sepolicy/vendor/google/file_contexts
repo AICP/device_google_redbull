@@ -67,3 +67,10 @@
 
 #vendor_kernel_modules
 /vendor/lib/modules/.*\.ko                                                             u:object_r:vendor_kernel_modules:s0
+
+# battery health
+/sys/class/power_supply/bms/charge_full*    u:object_r:sysfs_battery_health:s0
+/sys/class/power_supply/battery/health  u:object_r:sysfs_battery_health:s0
+/sys/class/power_supply/battery/technology  u:object_r:sysfs_battery_health:s0
+/sys/class/power_supply/battery/cycle_count u:object_r:sysfs_battery_health:s0
+/sys/class/power_supply/battery/charge_counter  u:object_r:sysfs_battery_health:s0

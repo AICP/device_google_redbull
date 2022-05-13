@@ -1,3 +1,0 @@
-# Battery Health Info
-allow system_app sysfs_battery_health:dir { search };
-allow system_app sysfs_battery_health:file { r_file_perms };
