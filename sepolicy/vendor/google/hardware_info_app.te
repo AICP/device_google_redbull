@@ -11,8 +11,8 @@ allow hardware_info_app app_api_service:service_manager find;
 dontaudit hardware_info_app sysfs:file r_file_perms;
 
 # Batteryinfo
-allow hardware_info_app sysfs_batteryinfo:dir search;
-allow hardware_info_app sysfs_batteryinfo:file r_file_perms;
+allow hardware_info_app vendor_sysfs_battery_supply:dir search;
+allow hardware_info_app vendor_sysfs_battery_supply:file r_file_perms;
 
 # Storage
 allow hardware_info_app sysfs_scsi_devices_0000:dir search;
