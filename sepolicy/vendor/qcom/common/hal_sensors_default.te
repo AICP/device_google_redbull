@@ -22,7 +22,7 @@ vndbinder_use(hal_sensors_default);
 allow hal_sensors_default sysfs_ssr:file r_file_perms;
 
 # for MagCC
-r_dir_file(hal_sensors_default, sysfs_batteryinfo)
+r_dir_file(hal_sensors_default, vendor_sysfs_battery_supply)
 
 allow hal_sensors_default hal_graphics_mapper_hwservice:hwservice_manager find;
 allow hal_sensors_default qdsp_device:chr_file r_file_perms;
