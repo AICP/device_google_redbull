@@ -28,5 +28,6 @@
     <string name="config_batCurCap">/sys/class/power_supply/bms/charge_full</string>
     <integer name="config_batCurCapDivider">1000</integer>
     <string name="config_batChargeCycle">/sys/class/power_supply/bms/cycle_count</string>
+    <string name="config_batHealthPercent">/sys/class/power_supply/battery/recharge_soc</string>
 
 </resources>

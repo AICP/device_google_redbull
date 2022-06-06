@@ -270,6 +270,8 @@ on late-fs
     chmod 0644 /sys/class/power_supply/bms/charge_full_design
     chown system system /sys/class/power_supply/bms/cycle_count
     chmod 0644 /sys/class/power_supply/bms/cycle_count
+    chown system system /sys/class/power_supply/battery/recharge_soc
+    chmod 0644 /sys/class/power_supply/battery/recharge_soc
 
     # Required for time_daemon
     mkdir /mnt/vendor/persist/time 0770 system system
