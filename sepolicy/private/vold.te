@@ -1,0 +1,2 @@
+allow vold apexd:process getattr;
+allow vold system_server:process getattr;
