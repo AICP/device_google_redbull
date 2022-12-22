@@ -16,21 +16,31 @@ PRODUCT_SOONG_NAMESPACES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/allowlist_com.google.android.as.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/allowlist_com.google.android.as.xml
 
-# AOD
-PRODUCT_PACKAGES += \
-    Doze
-
 # Camera
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.vendor.camera.extensions.package=com.google.android.apps.camera.services \
     ro.vendor.camera.extensions.service=com.google.android.apps.camera.services.extensions.service.PixelExtensions
 
+# Doze
+PRODUCT_PACKAGES += \
+    Doze
+
 # EUICC
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.euicc.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.hardware.telephony.euicc.xml
 
+# GMS
+WITH_GMS := true
+
 # Google Assistant
 PRODUCT_PRODUCT_PROPERTIES += ro.opa.eligible_device=true
+
+# IH8SN
+PRODUCT_PACKAGES += \
+    ih8sn
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/ih8sn.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/ih8sn.conf
 
 # LiveDisplay
 PRODUCT_PACKAGES += \
@@ -45,18 +55,34 @@ PRODUCT_PACKAGES += \
     PresencePolling \
     RcsService
 
+# Touch
+include hardware/google/pixel/touch/device.mk
+
+# MTG
+include vendor/gapps/arm64/arm64-vendor.mk
+
 # Build necessary packages for system_ext
 
 # Display
 PRODUCT_PACKAGES += \
     vendor.display.config@1.0 \
-    vendor.display.config@2.0
+    vendor.display.config@1.1 \
+    vendor.display.config@1.2 \
+    vendor.display.config@1.3 \
+    vendor.display.config@1.4 \
+    vendor.display.config@1.5 \
+    vendor.display.config@1.6 \
+    vendor.display.config@1.7 \
+    vendor.display.config@1.8 \
+    vendor.display.config@2.0 \
+    vendor.qti.hardware.systemhelper@1.0
 
 # Build necessary packages for vendor
 
 # Bluetooth
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0.vendor \
+    android.hardware.bluetooth@1.1.vendor \
     hardware.google.bluetooth.bt_channel_avoidance@1.0.vendor \
     hardware.google.bluetooth.sar@1.0.vendor \
     vendor.qti.hardware.bluetooth_audio@2.0.vendor
@@ -81,9 +107,10 @@ PRODUCT_PACKAGES += \
 
 # Display
 PRODUCT_PACKAGES += \
-    libdisplayconfig.qti.vendor \
+    com.google.hardware.pixel.display-V1-ndk.vendor:64 \
+    libdisplayconfig.qti \
     libqdutils:32 \
-    libqservice:32 \
+    libqservice:32 \ \
     vendor.display.config@1.0.vendor \
     vendor.display.config@1.1.vendor:64 \
     vendor.display.config@1.2.vendor:64 \
@@ -104,6 +131,7 @@ PRODUCT_PACKAGES += \
 
 # HIDL
 PRODUCT_PACKAGES += \
+    libhidltransport.vendor \
     libhwbinder.vendor
 
 # Identity credential
@@ -182,9 +210,13 @@ PRODUCT_PACKAGES += \
     android.hardware.authsecret@1.0.vendor \
     android.hardware.biometrics.fingerprint@2.1.vendor:64 \
     android.hardware.biometrics.fingerprint@2.2.vendor:64 \
+    android.hardware.camera.common@1.0.vendor:64 \
+    android.hardware.camera.device@1.0.vendor:64 \
+    android.hardware.camera.device@3.2.vendor:64 \
+    android.hardware.camera.provider@2.4.vendor:64 \
     android.hardware.gatekeeper@1.0.vendor \
-    android.hardware.input.classifier@1.0.vendor:64 \
-    android.hardware.input.common@1.0.vendor:64 \
+    android.hardware.input.common-V1-ndk.vendor:64 \
+    android.hardware.input.processor-V1-ndk.vendor:64 \
     android.hardware.keymaster@3.0.vendor \
     android.hardware.keymaster@4.0.vendor \
     android.hardware.keymaster@4.1.vendor \
@@ -193,7 +225,7 @@ PRODUCT_PACKAGES += \
     android.hardware.neuralnetworks@1.2.vendor:64 \
     android.hardware.neuralnetworks@1.3.vendor:64 \
     android.hardware.oemlock@1.0.vendor:64 \
-    android.hardware.power-V1-ndk_platform.vendor \
+    android.hardware.power-V1-ndk.vendor \
     android.hardware.radio.config@1.0.vendor:64 \
     android.hardware.radio.config@1.1.vendor:64 \
     android.hardware.radio.config@1.2.vendor:64 \
@@ -212,6 +244,7 @@ PRODUCT_PACKAGES += \
     android.hardware.wifi@1.3.vendor:64 \
     android.hardware.wifi@1.4.vendor:64 \
     android.hardware.wifi@1.5.vendor:64 \
+    android.hardware.wifi@1.6.vendor:64 \
     android.hidl.memory.block@1.0.vendor \
     android.system.net.netd@1.1.vendor:64 \
     vendor.qti.hardware.camera.postproc@1.0.vendor:64 \

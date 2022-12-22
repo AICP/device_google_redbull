@@ -39,14 +39,14 @@ userdebug_or_eng(`
 dontaudit hal_dumpstate_impl debugfs_batteryinfo:dir r_dir_perms;
 dontaudit hal_dumpstate_impl debugfs_batteryinfo:file r_file_perms;
 allow hal_dumpstate_impl sysfs_chargelevel:file r_file_perms;
-allow hal_dumpstate_impl vendor_sysfs_battery_supply:file r_file_perms;
+allow hal_dumpstate_impl sysfs_batteryinfo:file r_file_perms;
 
 # dump usb files
 allow hal_dumpstate_impl debugfs_usb:file r_file_perms;
 
 # dump power supply stats
-allow hal_dumpstate_impl vendor_sysfs_battery_supply:dir r_dir_perms;
-allow hal_dumpstate_impl vendor_sysfs_battery_supply:file r_file_perms;
+allow hal_dumpstate_impl sysfs_batteryinfo:dir r_dir_perms;
+allow hal_dumpstate_impl sysfs_batteryinfo:file r_file_perms;
 
 # Dumpstats IPA statistics
 userdebug_or_eng(`

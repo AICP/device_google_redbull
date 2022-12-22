@@ -15,5 +15,6 @@ allow hal_health_default persist_battery_file:file create_file_perms;
 allow hal_health_default persist_battery_file:dir rw_dir_perms;
 allow hal_health_default mnt_vendor_file:dir search;
 allow hal_health_default sysfs_chargelevel:file rw_file_perms;
-allow hal_health_default vendor_sysfs_battery_supply:dir r_dir_perms;
-allow hal_health_default vendor_sysfs_battery_supply:file rw_file_perms;
+allow hal_health_default sysfs_batteryinfo:file w_file_perms;
+
+r_dir_file(hal_health_default, sysfs_typec_info)

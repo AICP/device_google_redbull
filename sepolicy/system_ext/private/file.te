@@ -1,2 +1,0 @@
-# sysinfo
-type sysfs_device_info, fs_type, sysfs_type;

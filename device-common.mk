@@ -86,12 +86,13 @@ PRODUCT_COPY_FILES += \
 
 # Enforce privapp-permissions whitelist
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.control_privapp_permissions=enforce
+    ro.control_privapp_permissions?=enforce
 
 PRODUCT_PACKAGES += \
     messaging \
 
 TARGET_PRODUCT_PROP := $(LOCAL_PATH)/product.prop
+TARGET_SYSTEM_EXT_PROP := $(LOCAL_PATH)/system_ext.prop
 
 $(call inherit-product, $(LOCAL_PATH)/utils.mk)
 
@@ -101,6 +102,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/developer_gsi_keys.mk)
 PRODUCT_CHARACTERISTICS := nosdcard
 PRODUCT_SHIPPING_API_LEVEL := 30
 BOARD_SHIPPING_API_LEVEL := 30
+BOARD_API_LEVEL := 33
 
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
@@ -192,7 +194,7 @@ PRODUCT_PACKAGES += \
 
 # Context hub HAL
 PRODUCT_PACKAGES += \
-    android.hardware.contexthub@1.2-service.generic
+    android.hardware.contexthub-service.generic
 
 # CHRE tools
 ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
@@ -423,17 +425,20 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.bluetooth.emb_wp_mode=false \
     ro.vendor.bluetooth.wipower=false
 
+# Bluetooth ftmdaemon needs libbt-hidlclient.so
+PRODUCT_SOONG_NAMESPACES += vendor/qcom/proprietary/bluetooth/hidl_client
+
 # DRM HAL
 PRODUCT_PACKAGES += \
-    android.hardware.drm@1.4-service.clearkey \
-    android.hardware.drm@1.4-service.widevine
+    android.hardware.drm-service.clearkey \
+    android.hardware.drm-service.widevine
 
 # NFC and Secure Element packages
 PRODUCT_PACKAGES += \
     NfcNci \
     Tag \
     SecureElement \
-    android.hardware.nfc@1.2-service.st \
+    android.hardware.nfc-service.st \
     android.hardware.secure_element@1.2-service.st
 
 PRODUCT_COPY_FILES += \
@@ -582,11 +587,9 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     audio.primary.lito \
-    audio.a2dp.default \
     audio.usb.default \
     audio.r_submix.default \
     libaudio-resampler \
-    audio.hearing_aid.default \
     audio.bluetooth.default
 
 PRODUCT_PACKAGES += \
@@ -712,7 +715,7 @@ PRODUCT_PACKAGES += \
 
 # Override heap growth limit due to high display density on device
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.heapgrowthlimit=256m
+    dalvik.vm.heapgrowthlimit?=256m
 
 # Use 64-bit dex2oat for better dexopt time.
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -763,9 +766,13 @@ ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
         persist.vendor.tcpdump.log.br_num=5
 endif
 
-# Preopt SystemUI
-PRODUCT_DEXPREOPT_SPEED_APPS += \
-    SystemUIGoogle
+# Preopt SystemUI.
+PRODUCT_DEXPREOPT_SPEED_APPS += SystemUIGoogle  # For internal
+PRODUCT_DEXPREOPT_SPEED_APPS += SystemUI  # For AOSP
+
+# Compile SystemUI on device with `speed`.
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.systemuicompilerfilter=speed
 
 # Enable stats logging in LMKD
 TARGET_LMKD_STATS_LOG := true
@@ -839,7 +846,7 @@ PRODUCT_PACKAGES += $(HIDL_WRAPPER)
 # Increment the SVN for any official public releases
 ifeq ($(PRODUCT_DEVICE_SVN_OVERRIDE),)
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.vendor.build.svn=49
+	ro.vendor.build.svn=55
 endif
 
 # Enable iwlan service logging for debug
@@ -854,7 +861,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/task_profiles.json:$(TARGET_COPY_OUT_VENDOR)/etc/task_profiles.json
 
 # Set Vendor SPL to match platform
-VENDOR_SECURITY_PATCH = 2022-07-05
+VENDOR_SECURITY_PATCH = $(PLATFORM_SECURITY_PATCH)
 
 PRODUCT_PROPERTY_OVERRIDES += vendor.audio.adm.buffering.ms=2
 PRODUCT_PROPERTY_OVERRIDES += vendor.audio_hal.period_multiplier=2
@@ -902,7 +909,7 @@ persist.vendor.bt.aac_vbr_frm_ctl.enabled=true
 
 # Set lmkd options
 PRODUCT_PRODUCT_PROPERTIES += \
-        ro.config.low_ram = false \
+        ro.config.low_ram ?= false \
         ro.lmk.log_stats = true \
 
 # charger
@@ -971,9 +978,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     framework_watchdog.fatal_window.second=600 \
     framework_watchdog.fatal_count=3
 
-# Set system properties identifying the chipset
-PRODUCT_VENDOR_PROPERTIES += ro.soc.manufacturer=Qualcomm
-PRODUCT_VENDOR_PROPERTIES += ro.soc.model=SM7250
+# Enable zygote critical window.
+PRODUCT_PROPERTY_OVERRIDES += \
+    zygote.critical_window.minute=10
 
 # Include the redbull product FCM
 # (TODO: b/169535506) This includes the FCM for system_ext and product partition.
@@ -981,6 +988,9 @@ PRODUCT_VENDOR_PROPERTIES += ro.soc.model=SM7250
 ifneq ($(PRODUCT_VENDOR_FREEZE_SYSTEM_BUILD),true)
 PRODUCT_PACKAGES += redbull_product_compatibility_matrix.xml
 endif
+# Set system properties identifying the chipset
+PRODUCT_VENDOR_PROPERTIES += ro.soc.manufacturer=Qualcomm
+PRODUCT_VENDOR_PROPERTIES += ro.soc.model=SM7250
 
 #################################################################################
 # This is the End of device-common.mk file.
@@ -1032,8 +1042,4 @@ include hardware/google/pixel/citadel/citadel.mk
 
 # Pixel Logger
 include hardware/google/pixel/PixelLogger/PixelLogger.mk
-
-ifneq ($(wildcard vendor/qcom/sm7250/proprietary/prebuilt_grease),)
--include $(LOCAL_PATH)/redbull_allowlist.mk
-endif
 #################################################################################

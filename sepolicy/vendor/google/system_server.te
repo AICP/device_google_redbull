@@ -1,5 +1,0 @@
-allow system_server euiccpixel_app:process getattr;
-allow system_server grilservice_app:process getattr;
-allow system_server hardware_info_app:process getattr;
-allow system_server pixelstats_vendor:process getattr;
-allow system_server secure_ui_service_app:process getattr;

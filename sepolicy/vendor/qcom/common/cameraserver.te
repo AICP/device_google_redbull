@@ -9,3 +9,5 @@ dontaudit cameraserver gpu_device:chr_file rw_file_perms;
 
 # dontaudit unnecessary files in /sys
 dontaudit cameraserver sysfs_msm_subsys:dir search;
+
+allow cameraserver vendor_camera_prop:file { getattr map read open };
