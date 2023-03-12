@@ -343,11 +343,13 @@
     <!-- Whether the device enable the non-standalone (NSA) mode of 5G NR.-->
     <bool name="config_telephony5gNonStandalone">true</bool>
 
-    <!-- Fingerprint from a certified device against current platform SPL level -->
-    <string name="config_certifiedFingerprint" translatable="false">google/raven/raven:13/TQ1A.230205.002/9471150:user/release-keys</string>
-
-    <!-- Model from a certified device -->
-    <string name="config_certifiedModel" translatable="false">Pixel 6 Pro</string>
+    <!-- Build properties from a GMS certified device against current platform SPL level -->
+    <string-array name="config_certifiedBuildProperties" translatable="false">
+        <item>marlin</item>   <!-- Build.DEVICE -->
+        <item>marlin</item>   <!-- Build.PRODUCT -->
+        <item>Pixel XL</item> <!-- Build.MODEL -->
+        <item>google/marlin/marlin:7.1.2/NJH47F/4146041:user/release-keys</item> <!-- Build.FINGERPRINT -->
+    </string-array>
 
     <!-- Hardware keys present on the device, stored as a bit field.
          This integer should equal the sum of the corresponding value for each
