@@ -345,10 +345,10 @@
 
     <!-- Build properties from a GMS certified device against current platform SPL level -->
     <string-array name="config_certifiedBuildProperties" translatable="false">
-        <item>marlin</item>   <!-- Build.DEVICE -->
-        <item>marlin</item>   <!-- Build.PRODUCT -->
-        <item>Pixel XL</item> <!-- Build.MODEL -->
-        <item>google/marlin/marlin:7.1.2/NJH47F/4146041:user/release-keys</item> <!-- Build.FINGERPRINT -->
+        <item>bullhead</item>   <!-- Build.DEVICE -->
+        <item>bullhead</item>   <!-- Build.PRODUCT -->
+        <item>Nexus 5X</item>   <!-- Build.MODEL -->
+        <item>google/bullhead/bullhead:8.0.0/OPR6.170623.013/4283548:user/release-keys</item> <!-- Build.FINGERPRINT -->
     </string-array>
 
     <!-- Hardware keys present on the device, stored as a bit field.
