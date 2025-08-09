@@ -52,8 +52,8 @@
 /(vendor|system/vendor)/bin/subsystem_ramdump   u:object_r:vendor_subsystem_ramdump_exec:s0
 /(vendor|system/vendor)/bin/ssr_diag            u:object_r:vendor_ssr_diag_exec:s0
 /(vendor|system/vendor)/bin/hw/qcrild           u:object_r:rild_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.drm@[0-9]+\.[0-9]+-service\.clearkey    u:object_r:hal_drm_clearkey_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.drm(@[0-9]+\.[0-9]+)?-service\.widevine    u:object_r:hal_drm_widevine_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.drm@[0-9]+\.[0-9]+-(service|service-lazy)\.clearkey    u:object_r:hal_drm_clearkey_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.drm(@[0-9]+\.[0-9]+)?-(service|service-lazy)\.widevine(-v17)?    u:object_r:hal_drm_widevine_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.gnss@.*-service-qti u:object_r:hal_gnss_qti_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.qti\.gnss@.*-service u:object_r:hal_gnss_qti_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth@1\.0-service-qti  u:object_r:hal_bluetooth_default_exec:s0
@@ -73,7 +73,7 @@
 /(vendor|system/vendor)/bin/hw/vendor\.qti\.hardware\.qteeconnector@1\.0-service u:object_r:hal_qteeconnector_qti_exec:s0
 /vendor/bin/hw/vendor\.qti\.hardware\.qseecom@1\.0-service                  u:object_r:hal_qseecom_default_exec:s0
 /vendor/bin/vendor\.qti\.qspmhal@1\.0-service                               u:object_r:hal_qspmhal_default_exec:s0
-/(vendor|system/vendor)/bin/chre                u:object_r:chre_exec:s0
+/(vendor|system/vendor)/bin/chre_daemon_msm     u:object_r:chre_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.qti\.hardware\.display\.allocator@1\.0-service   u:object_r:hal_graphics_allocator_default_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.qti\.hardware\.display\.allocator-service   u:object_r:hal_graphics_allocator_default_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.qti\.hardware\.tui_comm@1\.0-service-qti u:object_r:hal_tui_comm_qti_exec:s0
@@ -82,6 +82,8 @@
 /(vendor|system/vendor)/bin/adpl                u:object_r:adpl_exec:s0
 /(vendor|system/vendor)/bin/ssgtzd              u:object_r:ssgtzd_exec:s0
 /(vendor|system/vendor)/bin/feature_enabler_client              u:object_r:feature_enabler_client_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.qti.hardware\.memtrack-service   u:object_r:hal_memtrack_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.boot-service\.qti     u:object_r:hal_bootctl_default_exec:s0
 
 # dev socket nodes
 /dev/socket/chre                                u:object_r:chre_socket:s0
@@ -261,6 +263,7 @@
 /data/vendor/mediadrm(/.*)?            u:object_r:mediadrm_vendor_data_file:s0
 /data/vendor/nnhal(/.*)?               u:object_r:hal_neuralnetworks_data_file:s0
 /data/vendor/ssrdump(/.*)?             u:object_r:ramdump_vendor_data_file:s0
+/data/vendor/ssrdump/coredump(/.*)?    u:object_r:sscoredump_vendor_data_coredump_file:s0
 /data/vendor/ssrlog(/.*)?              u:object_r:ssr_log_file:s0
 /data/vendor/camera(/.*)?              u:object_r:camera_vendor_data_file:s0
 /data/vendor/location(/.*)?            u:object_r:location_data_file:s0

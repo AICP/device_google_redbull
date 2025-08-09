@@ -23,45 +23,14 @@ PRODUCT_VENDOR_MOVE_ENABLED := true
 TARGET_BOARD_PLATFORM := lito
 
 PRODUCT_SOONG_NAMESPACES += \
-    hardware/google/av \
-    hardware/google/camera \
+    device/google/redbull \
     hardware/google/interfaces \
     hardware/google/pixel \
-    device/google/redbull \
-    hardware/qcom/sm7250 \
-    vendor/google/airbrush/floral \
-    vendor/google/biometrics/face/florence \
-    vendor/google/darwinn \
     hardware/qcom/sm7250/display \
-    vendor/google/camera \
-    vendor/qcom/sm7250 \
-    vendor/google/interfaces \
-    vendor/google_devices/common/proprietary/confirmatioui_hal \
-    vendor/google_nos/host/android \
-    vendor/google_nos/test/system-test-harness
-
-# Include GPS soong namespace
-PRODUCT_SOONG_NAMESPACES += \
     hardware/qcom/sm7250/gps \
-    vendor/qcom/sm7250/proprietary/gps \
-    vendor/qcom/sm7250/codeaurora/location
-
-# Include sensors soong namespace
-PRODUCT_SOONG_NAMESPACES += \
-    vendor/qcom/sensors \
-    vendor/google/tools/sensors
-
-# Single vendor RIL/Telephony/data with SM7250
-  PRODUCT_SOONG_NAMESPACES += \
-      vendor/qcom/sm7250/codeaurora/commonsys/telephony/ims/ims-ext-common \
-      vendor/qcom/sm7250/codeaurora/dataservices/rmnetctl \
-      vendor/qcom/sm7250/proprietary/commonsys/qcrilOemHook \
-      vendor/qcom/sm7250/proprietary/commonsys/telephony-apps/ims \
-      vendor/qcom/sm7250/proprietary/commonsys/telephony-apps/QtiTelephonyService \
-      vendor/qcom/sm7250/proprietary/commonsys/telephony-apps/xdivert \
-      vendor/qcom/sm7250/proprietary/qcril-data-hal \
-      vendor/qcom/sm7250/proprietary/qcril-hal \
-      vendor/qcom/sm7250/proprietary/data
+    hardware/qcom-caf/bootctrl \
+    system/chre/host/hal_generic \
+    vendor/qcom/opensource/data-ipa-cfg-mgr-legacy-um
 
 PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=true
@@ -82,7 +51,8 @@ PRODUCT_COPY_FILES += \
     device/google/redbull/default-permissions.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/default-permissions/default-permissions.xml \
     device/google/redbull/component-overrides.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml \
-    frameworks/native/data/etc/android.software.verified_boot.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.verified_boot.xml
+    frameworks/native/data/etc/android.software.verified_boot.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.verified_boot.xml \
+    frameworks/native/data/etc/android.software.ipsec_tunnel_migration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.ipsec_tunnel_migration.xml
 
 # Enforce privapp-permissions whitelist
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -102,7 +72,6 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/developer_gsi_keys.mk)
 PRODUCT_CHARACTERISTICS := nosdcard
 PRODUCT_SHIPPING_API_LEVEL := 30
 BOARD_SHIPPING_API_LEVEL := 30
-BOARD_API_LEVEL := 33
 
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
@@ -158,10 +127,6 @@ PRODUCT_PRODUCT_PROPERTIES += \
 PRODUCT_PRODUCT_PROPERTIES += \
     persist.sys.fuse.passthrough.enable=true
 
-PRODUCT_PACKAGES += \
-    bootctrl.lito \
-    bootctrl.lito.recovery
-
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.cp_system_other_odex=1
 
@@ -175,7 +140,6 @@ PRODUCT_PACKAGES += \
     update_engine_sideload
 
 PRODUCT_PACKAGES_DEBUG += \
-    sg_write_buffer \
     f2fs_io \
     check_f2fs
 
@@ -286,26 +250,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.audio.monitorRotation=true
 
-# Iaxxx streming and factory binary
-PRODUCT_PACKAGES += \
-    libtunnel \
-    libodsp \
-    adnc_strm.primary.default \
-    sound_trigger.primary.lito
-
-# Add Oslo test for debug rom
-ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
-PRODUCT_PACKAGES += \
-    tunneling_hal_test \
-    sensor_param_test \
-    oslo_config_test \
-    odsp_api_test \
-    crash_event_logger \
-    dump_debug_info \
-    get_pwr_stats \
-    crash_trigger_test
-endif
-
 # graphics
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196610
@@ -383,34 +327,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.snapshot_enabled=0 \
     persist.vendor.radio.snapshot_timer=0
 
-# RenderScript HAL
-PRODUCT_PACKAGES += \
-    android.hardware.renderscript@1.0-impl
-
 # Light HAL
 PRODUCT_PACKAGES += \
     lights.lito
 
 # Memtrack HAL
 PRODUCT_PACKAGES += \
-    memtrack.lito \
-    android.hardware.memtrack@1.0-impl \
-    android.hardware.memtrack@1.0-service
-
-# Bluetooth HAL
-PRODUCT_PACKAGES += \
-    android.hardware.bluetooth@1.0-impl-qti \
-    android.hardware.bluetooth@1.0-service-qti
-
-#Bluetooth SAR HAL
-PRODUCT_PACKAGES += \
-    hardware.google.bluetooth.sar@1.0-impl
-PRODUCT_PACKAGES_DEBUG += \
-    bluetooth_sar_test
-
-#Bluetooth AFH HAL
-PRODUCT_PACKAGES += \
-    hardware.google.bluetooth.bt_channel_avoidance@1.0-impl
+    vendor.qti.hardware.memtrack-service
 
 # Bluetooth SoC
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -430,12 +353,11 @@ PRODUCT_SOONG_NAMESPACES += vendor/qcom/proprietary/bluetooth/hidl_client
 
 # DRM HAL
 PRODUCT_PACKAGES += \
-    android.hardware.drm-service.clearkey \
-    android.hardware.drm-service.widevine
+    android.hardware.drm-service.clearkey
 
 # NFC and Secure Element packages
 PRODUCT_PACKAGES += \
-    NfcNci \
+    $(RELEASE_PACKAGE_NFC_STACK) \
     Tag \
     SecureElement \
     android.hardware.nfc-service.st \
@@ -452,39 +374,15 @@ PRODUCT_PACKAGES += \
 
 # Storage health HAL
 PRODUCT_PACKAGES += \
-    android.hardware.health.storage@1.0-service
-
-PRODUCT_PACKAGES += \
-    libmm-omxcore \
-    libOmxCore \
-    libstagefrighthw \
-    libOmxVdec \
-    libOmxVdecHevc \
-    libOmxVenc \
-    libc2dcolorconvert
-
-# Enable Codec 2.0
-PRODUCT_PACKAGES += \
-    libqcodec2_base \
-    libqcodec2_utils \
-    libqcodec2_platform \
-    libqcodec2_core \
-    libqcodec2_basecodec \
-    libqcodec2_v4l2codec \
-    vendor.qti.media.c2@1.0-service \
-    codec2.vendor.ext-arm64.policy \
-    codec2.vendor.base-arm64.policy
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    debug.stagefright.omx_default_rank=512
+    android.hardware.health.storage-service.default
 
 # Create input surface on the framework side
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.stagefright.c2inputsurface=-1 \
 
-# Disable OMX
+# Media Performance Class 11
 PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.media.omx=0 \
+    ro.odm.build.media_performance_class=30
 
 # Media Performance Class 11
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -500,17 +398,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.ims.mm_minqp=1
 
-PRODUCT_PACKAGES += \
-    android.hardware.camera.provider@2.7-impl-google \
-    android.hardware.camera.provider@2.7-service-google \
-    camera.lito \
-    lib_multicam_dualfov_capture_session \
-    libgooglecamerahwl_impl \
-    libqomx_core \
-    libmmjpeg_interface \
-    libmmcamera_interface \
-    libcameradepthcalibrator
-
 # Google Camera HAL test libraries in debug builds
 ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
 PRODUCT_PACKAGES_DEBUG += \
@@ -524,9 +411,10 @@ PRODUCT_PACKAGES += \
 
 # Boot control HAL
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.2-impl-pixel-legacy \
-    android.hardware.boot@1.2-impl-pixel-legacy.recovery \
-    android.hardware.boot@1.2-service \
+    android.hardware.boot-service.qti \
+    android.hardware.boot-service.qti.recovery
+
+$(call soong_config_set,QTI_GPT_UTILS,USE_BSG_FRAMEWORK,false)
 
 #GNSS HAL
 PRODUCT_PACKAGES += \
@@ -550,7 +438,6 @@ endif
 PRODUCT_PACKAGES += $(HOSTAPD)
 
 WPA := wpa_supplicant.conf
-WPA += wpa_supplicant_wcn.conf
 WPA += wpa_supplicant
 PRODUCT_PACKAGES += $(WPA)
 
@@ -560,6 +447,7 @@ endif
 
 # Wifi
 PRODUCT_PACKAGES += \
+    android.hardware.wifi-service \
     wificond \
     libwpa_client \
     WifiOverlay
@@ -575,18 +463,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi_concurrency_cfg.txt:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wifi_concurrency_cfg.txt \
     $(LOCAL_PATH)/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini \
 
-LIB_NL := libnl_2
-PRODUCT_PACKAGES += $(LIB_NL)
-
-# Audio effects
 PRODUCT_PACKAGES += \
-    libvolumelistener \
-    libqcomvisualizer \
-    libqcomvoiceprocessing \
-    libqcompostprocbundle
-
-PRODUCT_PACKAGES += \
-    audio.primary.lito \
     audio.usb.default \
     audio.r_submix.default \
     libaudio-resampler \
@@ -598,17 +475,6 @@ PRODUCT_PACKAGES += \
     android.hardware.soundtrigger@2.3-impl \
     android.hardware.bluetooth.audio@2.0-impl \
     android.hardware.audio.service
-
-# Modules for Audio HAL
-PRODUCT_PACKAGES += \
-    libcirrusspkrprot \
-    libsndmonitor \
-    liba2dpoffload \
-    btaudio_offload_if \
-    libthermallistener \
-    libmaxxaudio \
-    libaudiozoom \
-    libdevicestatelistener
 
 ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
 PRODUCT_PACKAGES += \
@@ -657,16 +523,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
     $(LOCAL_PATH)/media_codecs_c2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_c2.xml \
     $(LOCAL_PATH)/media_codecs_performance_c2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance_c2.xml \
-    $(LOCAL_PATH)/media_codecs_omx.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_omx.xml \
     $(LOCAL_PATH)/video_system_specs.json:$(TARGET_COPY_OUT_VENDOR)/etc/video_system_specs.json \
-    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
     $(LOCAL_PATH)/media_profiles_V1_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
-
-# Vendor seccomp policy files for media components:
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/seccomp_policy/mediacodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy
 
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.audio.snd_card.open.retries=50
@@ -709,9 +567,6 @@ endif
 # Storage: for factory reset protection feature
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.frp.pst=/dev/block/bootdevice/by-name/frp
-
-PRODUCT_PACKAGES += \
-    vndk-sp
 
 # Override heap growth limit due to high display density on device
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -846,7 +701,7 @@ PRODUCT_PACKAGES += $(HIDL_WRAPPER)
 # Increment the SVN for any official public releases
 ifeq ($(PRODUCT_DEVICE_SVN_OVERRIDE),)
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.vendor.build.svn=72
+	ro.vendor.build.svn=76
 endif
 
 # Enable iwlan service logging for debug
@@ -859,9 +714,6 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/task_profiles.json:$(TARGET_COPY_OUT_VENDOR)/etc/task_profiles.json
-
-# Set Vendor SPL to match platform
-VENDOR_SECURITY_PATCH = 2023-09-05
 
 PRODUCT_PROPERTY_OVERRIDES += vendor.audio.adm.buffering.ms=2
 PRODUCT_PROPERTY_OVERRIDES += vendor.audio_hal.period_multiplier=2
@@ -1022,6 +874,9 @@ endif
 # Project
 include hardware/google/pixel/common/pixel-common-device.mk
 
+# gs-common
+include device/google/gs-common/misc_writer/misc_writer.mk
+
 # Citadel
 include hardware/google/pixel/citadel/citadel.mk
 
@@ -1032,7 +887,7 @@ include hardware/google/pixel/citadel/citadel.mk
 -include hardware/google/pixel/pixelstats/device.mk
 
 # thermal
--include hardware/google/pixel/thermal/device.mk
+include device/google/gs-common/thermal/thermal_hal/device.mk
 
 # power HAL
 -include hardware/google/pixel/power-libperfmgr/aidl/device.mk
@@ -1042,4 +897,10 @@ include hardware/google/pixel/citadel/citadel.mk
 
 # Pixel Logger
 include hardware/google/pixel/PixelLogger/PixelLogger.mk
+
+# Touch service
+include device/google/gs-common/touch/twoshay/twoshay.mk
 #################################################################################
+
+# Update soong config namespace
+-include vendor/google/build/soong/soong_config_namespace/qcril_oemhook.mk

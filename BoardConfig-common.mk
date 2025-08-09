@@ -36,7 +36,6 @@ TARGET_2ND_CPU_VARIANT := generic
 TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a76
 endif
 
-BUILD_BROKEN_DUP_RULES := true
 BOARD_KERNEL_CMDLINE += console=ttyMSM0,115200n8 androidboot.console=ttyMSM0 printk.devkmsg=on
 BOARD_KERNEL_CMDLINE += msm_rtb.filter=0x237
 BOARD_KERNEL_CMDLINE += ehci-hcd.park=3
@@ -47,6 +46,7 @@ BOARD_KERNEL_CMDLINE += usbcore.autosuspend=7
 BOARD_KERNEL_CMDLINE += androidboot.usbcontroller=a600000.dwc3 swiotlb=2048
 BOARD_KERNEL_CMDLINE += androidboot.boot_devices=soc/1d84000.ufshc
 BOARD_KERNEL_CMDLINE += loop.max_part=7
+BOARD_KERNEL_CMDLINE += loop.hw_queue_depth=31
 BOARD_KERNEL_CMDLINE += snd_soc_cs35l41_i2c.async_probe=1
 BOARD_KERNEL_CMDLINE += i2c_qcom_geni.async_probe=1
 BOARD_KERNEL_CMDLINE += st21nfc.async_probe=1
@@ -102,7 +102,7 @@ TARGET_RECOVERY_WIPE := device/google/redbull/recovery.wipe
 TARGET_RECOVERY_FSTAB := device/google/redbull/fstab.hardware
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_RECOVERY_UI_LIB := \
-    librecovery_ui_pixel \
+    //hardware/google/pixel/recovery:librecovery_ui_pixel \
     libfstab
 
 # Enable chain partition for system.
@@ -124,7 +124,6 @@ BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
 # userdata.img
 TARGET_USERIMAGES_USE_F2FS := true
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 10737418240
-BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
 
 # persist.img
 BOARD_PERSISTIMAGE_PARTITION_SIZE := 33554432
@@ -399,9 +398,6 @@ TARGET_USES_HARDWARE_QCOM_GPS := false
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := default
 BOARD_VENDOR_QCOM_LOC_PDK_FEATURE_SET := true
 
-# RenderScript
-OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
-
 # Sensors
 TARGET_SUPPORT_DIRECT_REPORT := true
 
@@ -424,6 +420,8 @@ WIFI_FEATURE_WIFI_EXT_HAL := true
 WIFI_FEATURE_IMU_DETECTION := true
 WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 BOARD_HOSTAPD_CONFIG_80211W_MFP_OPTIONAL := true
+# Add WIFI_FEATURE_IMU_DETECTION to soong_config
+$(call soong_config_set,wifi,feature_imu_detection,$(WIFI_FEATURE_IMU_DETECTION))
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
@@ -495,8 +493,8 @@ ifneq ($(PRODUCT_BUILD_VENDOR_IMAGE),false)
 BOARD_GOOGLE_DYNAMIC_PARTITIONS_PARTITION_LIST += vendor
 endif
 
-#BOARD_GOOGLE_DYNAMIC_PARTITIONS_SIZE is set to (5GB - 4MB)
-BOARD_GOOGLE_DYNAMIC_PARTITIONS_SIZE := 5364514816
+#BOARD_GOOGLE_DYNAMIC_PARTITIONS_SIZE is set to (6GB - 4MB)
+BOARD_GOOGLE_DYNAMIC_PARTITIONS_SIZE := 6438256640
 
 # Set error limit to BOARD_SUPER_PARTITON_SIZE - 500MB
 BOARD_SUPER_PARTITION_ERROR_LIMIT := 9231663104
