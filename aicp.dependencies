@@ -1,0 +1,14 @@
+[
+  {
+    "remote":      "aicp",
+    "repository":  "LineageOS/android_device_google_gs-common",
+    "target_path": "device/google/gs-common",
+    "branch":      "lineage-23.0"
+  },
+  {
+    "remote":      "aicp",
+    "repository":  "LineageOS/android_kernel_google_redbull",
+    "target_path": "kernel/google/redbull",
+    "branch":      "lineage-23.0"
+  }
+]
