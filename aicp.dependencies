@@ -10,5 +10,11 @@
     "repository":  "AICP/kernel_google_redbull",
     "target_path": "kernel/google/redbull",
     "branch":      "w16.0"
+  },
+  {
+    "remote":      "aicp",
+    "repository":  "Evolution-X-Devices/packages_apps_PixelParts",
+    "target_path": "packages/apps/PixelParts",
+    "branch":      "bka"
   }
 ]

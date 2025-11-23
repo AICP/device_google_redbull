@@ -41,6 +41,9 @@ $(call soong_config_set,livedisplay_sdm,enable_dm,false)
 PRODUCT_PACKAGES += \
     GoogleParts
 
+# PixelParts
+include packages/apps/PixelParts/device.mk
+
 # RCS
 PRODUCT_PACKAGES += \
     PresencePolling \
