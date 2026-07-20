@@ -343,8 +343,8 @@ PRODUCT_COPY_FILES += \
     device/google/redbull/nfc/libnfc-nci.conf:$(TARGET_COPY_OUT_PRODUCT)/etc/libnfc-nci.conf
 
 PRODUCT_PACKAGES += \
-    android.hardware.health@2.1-impl-redbull \
-    android.hardware.health@2.1-service
+    android.hardware.health-service.redbull \
+    android.hardware.health-service.redbull_recovery
 
 # Storage health HAL
 PRODUCT_PACKAGES += \
@@ -429,7 +429,7 @@ PRODUCT_PACKAGES += \
     android.hardware.audio@7.0-impl:32 \
     android.hardware.audio.effect@7.0-impl:32 \
     android.hardware.soundtrigger@2.3-impl \
-    android.hardware.bluetooth.audio@2.0-impl \
+    android.hardware.bluetooth.audio-impl \
     android.hardware.audio.service
 
 # Audio hal xmls
